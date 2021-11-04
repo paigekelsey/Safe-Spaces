@@ -1,33 +1,127 @@
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Async Week Project</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Async Week Project</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+  </head>
+  <body>
+    <h2 id="header">Async Week Project</h2>
+    <div>
+      <canvas id="chart" width="200" height="200"></canvas>
+      <br />
+      <br />
+      <br />
+      <br />
+      <canvas id="chart2" width="200" height="200"></canvas>
+      <script>
+        chartIt();
 
-</head>
-<body>
-<script>
-  // <!-- DATA FROM ILGA WORLD – THE INTERNATIONAL LESBIAN, GAY, BISEXUAL, TRANS AND INTERSEX ASSOCIATION https://ilga.org/maps-sexual-orientation-laws -->
+        async function chartIt() {
+          const data = await getData();
+          const data2 = await getData2();
+          const ctx = document.getElementById("chart").getContext("2d");
+          const context = document.getElementById("chart2").getContext("2d");
+          var grad = ctx.createLinearGradient(200, 400, 200, 0);
 
-  getData()
-   async function getData(){
-     const response = await fetch('data/mei.csv')
-     const data= await response.text()
+          grad.addColorStop(0.24, "rgba(233, 30, 30, 1)");
+          grad.addColorStop(0.45, "rgba(255, 255, 0, 1)");
+          grad.addColorStop(0.59, "rgba(21, 255, 32, 1)");
+          grad.addColorStop(0.78, "rgba(0, 188, 212, 1)");
+          grad.addColorStop(0.97, "rgba(238, 130, 238, 1)");
 
-     const table = data.split('\n').slice(1);
-      table.forEach(row => {
-        const columns = row.split(',');
-        const country = columns[0]
-        const year = columns[1]
-        const score = columns[2]
-        console.log(year, country, score)
+          ctx.fillStyle = grad;
+          ctx.fillRect(0, 0, 400, 400);
+          const myChart = new Chart(ctx, {
+            responsive: true,
+            maintainAspectRatio: true,
+            type: "bar",
+            data: {
+              labels: data.cities,
+              datasets: [
+                {
+                  label: "Alabama Municipal Equality Index",
+                  data: data.scores,
+                  minBarLength: 7,
+                  backgroundColor: grad,
+                  borderColor: grad,
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
 
-      })
+          const myOtherChart = new Chart(context, {
+            type: "bar",
+            data: {
+              labels: data2.cities2,
+              datasets: [
+                {
+                  label: "New York State Municipal Equality Index",
+                  data: data2.scores2,
+                  minBarLength: 7,
+                  backgroundColor: grad,
+                  borderColor: grad,
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true,
+                },
+              },
+            },
+          });
+        }
 
-    }
-///content delivery network CHART.JS
+        // <!-- DATA FROM ILGA WORLD – THE INTERNATIONAL LESBIAN, GAY, BISEXUAL, TRANS AND INTERSEX ASSOCIATION https://ilga.org/maps-sexual-orientation-laws -->
 
-</script>
-</body>
+        async function getData() {
+          const cities = [];
+          const scores = [];
+          const response = await fetch("data/sei.csv");
+          const data = await response.text();
+
+          const table = data.split("\n").slice(1);
+          table.forEach((row) => {
+            const columns = row.split(",");
+            const city = columns[0];
+            const score = columns[1];
+            cities.push(city);
+            scores.push(score);
+            console.log(city, score);
+          });
+          return { cities, scores };
+        }
+        async function getData2() {
+          const cities2 = [];
+          const scores2 = [];
+          const response = await fetch("data/ny.csv");
+          const data = await response.text();
+
+          const table = data.split("\n").slice(1);
+          table.forEach((row) => {
+            const columns = row.split(",");
+            const city = columns[0];
+            const score = columns[1];
+            cities2.push(city);
+            scores2.push(score);
+            console.log(city, score);
+          });
+          return { cities2, scores2 };
+        }
+      </script>
+    </div>
+  </body>
 </html>
