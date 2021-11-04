@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Async Week Project</title>
+
+</head>
+<body>
+<script>
+  // <!-- DATA FROM ILGA WORLD – THE INTERNATIONAL LESBIAN, GAY, BISEXUAL, TRANS AND INTERSEX ASSOCIATION https://ilga.org/maps-sexual-orientation-laws -->
+
+  getData()
+   async function getData(){
+     const response = await fetch('data/mei.csv')
+     const data= await response.text()
+
+     const table = data.split('\n').slice(1);
+      table.forEach(row => {
+        const columns = row.split(',');
+        const country = columns[0]
+        const year = columns[1]
+        const score = columns[2]
+        console.log(year, country, score)
+
+      })
+
+    }
+///content delivery network CHART.JS
+
+</script>
+</body>
+</html>
