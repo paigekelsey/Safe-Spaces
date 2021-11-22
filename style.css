@@ -1,11 +1,196 @@
-#header {
-  text-align: center;
-  font-family: monospace;
+.wrapper {
+  width: 960px;
+  margin: 0 auto;
+}
+
+header {
+}
+
+section {
+  padding-top: 20px;
+  background-color: #fbd4d5;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+.right {
+  text-align: right;
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  font-family: "Lato", sans-serif;
+}
+/**************************************
+CSS TO MAKE THE EXAMPLE LOOK PRETTY
+**************************************/
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-  margin-left: 20%;
-  margin-right: 20%;
-  margin-top: 20%;
+  background-color: #082340;
+  color: white;
+  font-family: "Raleway", sans-serif;
+  text-align: center;
+  font-size: 130%;
   margin-top: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
+  margin-bottom: 10%;
+}
+
+header,
+nav,
+section {
+  border: 15px solid #e99790;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+header {
+  padding: 20px 0;
+}
+
+a {
+  color: white;
+  padding: 20px;
+}
+
+#leaflet {
+  height: 100%;
+  width: 100%;
+}
+
+#leaf-info {
+  color: white;
+  text-align: center;
+}
+
+.rules-btn {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  font-family: "Lato", sans-serif;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+}
+.bars {
+  position: absolute;
+  top: 300px;
+  left: 30px;
+  font-family: "Lato", sans-serif;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0 8px;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-family: "Lato", sans-serif;
+  background: #e99790;
+  color: white;
+  border-radius: 5px;
+  transition: 0.5s all ease;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+}
+
+.rules {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fbd4d5;
+  color: #e99790;
+  min-height: 100vh;
+  width: 310px;
+  padding: 40px;
+  line-height: 1.5;
+  transform: translateX(-410px);
+  transition: transform 0.9s ease-in-out;
+}
+
+.rules p {
+  margin-bottom: 1rem;
+  color: #082340;
+  font-family: "Ubuntu", sans-serif;
+  text-align: center;
+  font-size: 15px;
+}
+
+.rules h2 {
+  display: inline-block;
+  border-bottom: 2px solid #e99790;
+  margin-bottom: 0.7rem;
+  text-transform: uppercase;
+}
+
+.rules.show {
+  transform: translateX(0);
+}
+
+.btn {
+  cursor: pointer;
+  padding: 10px 20px;
+  margin: 0 8px;
+  border: 0;
+  text-transform: uppercase;
+  font-size: 20px;
+  font-family: "Lato", sans-serif;
+  background: #e99790;
+  color: white;
+  border-radius: 5px;
+  transition: 0.5s all ease;
+  box-shadow: 0 5px 15px 0px rgba(0, 0, 0, 0.6);
+}
+
+.btn:hover {
+  transform: scale(1.1);
+}
+
+.btn:focus {
+  outline: 0;
+}
+
+.form-control {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+
+.slide-right {
+  width: 100%;
+  overflow: hidden;
+  margin-left: 500px;
+  max-width: 1000px;
+}
+
+.slide-right p {
+  animation: 2s slide-right 2s forwards;
+  transform: translateX(-100%);
+  font-size: 16px;
+  color: #6f63ad;
+  font-family: "Urbanist", sans-serif;
+}
+
+@keyframes slide-right {
+  to {
+    transform: translateX(0);
+  }
+}
+
+.mapbox {
+  text-align: center;
+  margin-left: 50px;
+}
+
+.leafy {
+  margin-left: 25%;
+  margin-right: 0;
+  margin-top: 0;
+  margin-bottom: 0;
 }

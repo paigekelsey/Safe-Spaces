@@ -8,84 +8,137 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
   </head>
   <body>
-    <h2 id="header">Async Week Project</h2>
-    <div>
-      <canvas id="chart" width="200" height="200"></canvas>
-      <br />
-      <br />
-      <br />
-      <br />
-      <canvas id="chart2" width="200" height="200"></canvas>
-      <script>
-        chartIt();
+    <button id="rules-btn" class="btn rules-btn">FACTS</button>
 
-        async function chartIt() {
-          const data = await getData();
-          const data2 = await getData2();
-          const ctx = document.getElementById("chart").getContext("2d");
-          const context = document.getElementById("chart2").getContext("2d");
-          var grad = ctx.createLinearGradient(200, 400, 200, 0);
+    <div class="right">
+      <a href="data.html"><button id="btn" class="btn">More Charts</button></a>
+    </div>
+    <div id="rules" class="rules">
+      <h2>About</h2>
+      <p>
+        Data was pulled from the MEI link
+        <br />
+        Municipal Equality Index 2020 The MEI examines how inclusive municipal
+        laws, policies, and services are of LGBTQ+ people who live and work
+        there. Cities are rated based on non-discrimination laws, the
+        municipality as an employer, municipal services, law enforcement and
+        leadership on LGBTQ+ equality.
+      </p>
+      <p>
+        HOW ARE THE SCORES CALCULATED? Cities are rated on a scale of 0-100,
+        based on the city’s laws, policies, benefits, and services. There are
+        100 standard points and 22 flex points (flex points are awarded for
+        items which apply to some but not all cities).
+      </p>
+      <button id="close-btn" class="btn">Close</button>
+    </div>
 
-          grad.addColorStop(0.24, "rgba(233, 30, 30, 1)");
-          grad.addColorStop(0.45, "rgba(255, 255, 0, 1)");
-          grad.addColorStop(0.59, "rgba(21, 255, 32, 1)");
-          grad.addColorStop(0.78, "rgba(0, 188, 212, 1)");
-          grad.addColorStop(0.97, "rgba(238, 130, 238, 1)");
+    <h1>Data Abstraction and Visualiztion</h1>
+    <header>ChartJS and Data Abstraction</header>
 
-          ctx.fillStyle = grad;
-          ctx.fillRect(0, 0, 400, 400);
-          const myChart = new Chart(ctx, {
-            responsive: true,
-            maintainAspectRatio: true,
-            type: "bar",
-            data: {
-              labels: data.cities,
-              datasets: [
-                {
-                  label: "Alabama Municipal Equality Index",
-                  data: data.scores,
-                  minBarLength: 7,
-                  backgroundColor: grad,
-                  borderColor: grad,
-                  borderWidth: 1,
+    <section><canvas id="chart"></canvas></section>
+
+    <section>
+      <canvas id="chart2"></canvas>
+    </section>
+    <p>
+      Data obtained from
+      <a href="https://www.hrc.org/resources/municipal-equality-index"
+        >Human Rights Campaign</a
+      >
+    </p>
+    <script>
+      chartIt();
+
+      async function chartIt() {
+        const data = await getData();
+        const data2 = await getData2();
+
+        const ctx = document.getElementById("chart").getContext("2d");
+        const context = document.getElementById("chart2").getContext("2d");
+        var grad = ctx.createLinearGradient(200, 400, 200, 0);
+
+        grad.addColorStop(0.24, "rgba(233, 30, 30, 1)");
+        grad.addColorStop(0.45, "rgba(255, 255, 0, 1)");
+        grad.addColorStop(0.59, "rgba(21, 255, 32, 1)");
+        grad.addColorStop(0.78, "rgba(0, 188, 212, 1)");
+        grad.addColorStop(0.97, "rgba(238, 130, 238, 1)");
+
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, 400, 400);
+        const myChart = new Chart(ctx, {
+          responsive: true,
+          maintainAspectRatio: true,
+          type: "bar",
+          data: {
+            labels: data.cities,
+            datasets: [
+              {
+                label: "Equality Index",
+                data: data.scores,
+                minBarLength: 12,
+                backgroundColor: grad,
+                hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                hoverBorderColor: "rgba(255,99,132,1)",
+                borderWidth: 1,
+                borderColor: "black",
+                lineWidth: 9,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: {
+                  display: false,
                 },
-              ],
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true,
+              },
+              x: {
+                grid: {
+                  display: false,
                 },
               },
             },
-          });
+          },
+        });
 
-          const myOtherChart = new Chart(context, {
-            type: "bar",
-            data: {
-              labels: data2.cities2,
-              datasets: [
-                {
-                  label: "New York State Municipal Equality Index",
-                  data: data2.scores2,
-                  minBarLength: 7,
-                  backgroundColor: grad,
-                  borderColor: grad,
-                  borderWidth: 1,
+        const myOtherChart = new Chart(context, {
+          responsive: true,
+          maintainAspectRatio: true,
+          type: "bar",
+          data: {
+            labels: data2.cities2,
+            datasets: [
+              {
+                label: "New York State Municipal Equality Index",
+                data: data2.scores2,
+                minBarLength: 7,
+                backgroundColor: grad,
+                hoverBackgroundColor: "rgba(255,99,132,0.4)",
+                hoverBorderColor: "rgba(255,99,132,1)",
+                borderWidth: 1,
+                borderColor: "black",
+                lineWidth: 9,
+              },
+            ],
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true,
+                grid: {
+                  display: false,
                 },
-              ],
-            },
-            options: {
-              scales: {
-                y: {
-                  beginAtZero: true,
+              },
+              x: {
+                grid: {
+                  display: false,
                 },
               },
             },
-          });
-        }
-
-        // <!-- DATA FROM ILGA WORLD – THE INTERNATIONAL LESBIAN, GAY, BISEXUAL, TRANS AND INTERSEX ASSOCIATION https://ilga.org/maps-sexual-orientation-laws -->
+          },
+        });
 
         async function getData() {
           const cities = [];
@@ -121,7 +174,14 @@
           });
           return { cities2, scores2 };
         }
-      </script>
-    </div>
+      }
+
+      const rulesBtn = document.getElementById("rules-btn");
+
+      const closeBtn = document.getElementById("close-btn");
+
+      rulesBtn.addEventListener("click", () => rules.classList.add("show"));
+      closeBtn.addEventListener("click", () => rules.classList.remove("show"));
+    </script>
   </body>
 </html>
