@@ -3,7 +3,7 @@ const mymap = L.map("leaflet").setView([39.8097343, -98.5556199], 4);
 const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-const tileUrl = "http://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg";
+const tileUrl = "https://{s}.tile.stamen.com/watercolor/{z}/{x}/{y}.jpg";
 // "https://stamen-tiles.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}@2x.png";
 //  "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 
